@@ -1,11 +1,11 @@
 /* App container and general typography */
 .App {
-  font-family: 'Poppins', sans-serif; /* A more modern font */
+  font-family: 'Poppins', sans-serif;
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #1a1a2e; /* A dark, modern background */
+  background-color: #1a1a2e;
   color: #fff;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -60,7 +60,7 @@ button:active, select:active {
 /* Individual array bars */
 .array-bar {
   margin: 0 1px;
-  background-color: #4285f4; /* Default bar color */
+  background-color: #4285f4;
   transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -102,4 +102,48 @@ button:active, select:active {
   font-family: 'Courier New', monospace;
   white-space: pre-wrap;
   margin-top: 10px;
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* For screens smaller than 768px (e.g., tablets and phones) */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+
+  .controls {
+    flex-direction: column; /* Stack controls vertically */
+    gap: 10px;
+  }
+
+  button, select, input[type="range"] {
+    width: 90%;
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  /* Make array container and bars smaller for phones */
+  .array-container {
+    height: 350px; /* Reduce height */
+    margin-top: 10px;
+  }
+
+  .array-bar {
+    margin: 0 0.5px;
+  }
+  
+  .bar-value {
+      font-size: 8px;
+      bottom: -15px;
+  }
+
+  .algorithm-info {
+    font-size: 0.9em;
+    padding: 15px;
+  }
+
+  .pseudocode {
+    font-size: 0.8em;
+  }
 }

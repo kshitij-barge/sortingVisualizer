@@ -4,7 +4,7 @@ import { bubbleSort } from './algorithms/BubbleSort';
 import { selectionSort } from './algorithms/SelectionSort';
 import { mergeSort } from './algorithms/MergeSort';
 import { quickSort } from './algorithms/QuickSort';
-import { insertionSort } from './algorithms/InsertionSort'; // New Import
+import { insertionSort } from './algorithms/InsertionSort';
 
 const algorithmDetails = {
   bubble: {
@@ -66,7 +66,7 @@ const algorithmDetails = {
           quickSort(arr, pi+1, high)
     `,
   },
-  insertion: { // New Algorithm Added
+  insertion: {
     name: "Insertion Sort",
     timeComplexity: "$O(n^2)$",
     spaceComplexity: "$O(1)$",
@@ -117,7 +117,7 @@ const App = () => {
       sortedArray = await mergeSort(array, delayTime);
     } else if (algorithm === "quick") {
       sortedArray = await quickSort(array, delayTime);
-    } else if (algorithm === "insertion") { // New condition
+    } else if (algorithm === "insertion") {
       sortedArray = await insertionSort(array, delayTime);
     }
 
@@ -146,7 +146,7 @@ const App = () => {
           <option value="selection">Selection Sort</option>
           <option value="merge">Merge Sort</option>
           <option value="quick">Quick Sort</option>
-          <option value="insertion">Insertion Sort</option> {/* New Option */}
+          <option value="insertion">Insertion Sort</option>
         </select>
         <input
           type="range"
@@ -178,7 +178,6 @@ const App = () => {
               width: `${500 / size}px`,
             }}
           >
-            <div className="bar-value">{value}</div>
           </div>
         ))}
       </div>
