@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import { bubbleSort } from './BubbleSort';
-import { selectionSort } from './SelectionSort';
-import { mergeSort } from './MergeSort';
-import { quickSort } from './QuickSort';
+import './styles/App.css';
+import { bubbleSort } from './algorithms/BubbleSort';
+import { selectionSort } from './algorithms/SelectionSort';
+import { mergeSort } from './algorithms/MergeSort';
+import { quickSort } from './algorithms/QuickSort';
+import { insertionSort } from './algorithms/InsertionSort'; // New Import
 
 const algorithmDetails = {
   bubble: {
     name: "Bubble Sort",
-    timeComplexity: "O(n^2)",
-    spaceComplexity: "O(1)",
+    timeComplexity: "$O(n^2)$",
+    spaceComplexity: "$O(1)$",
     explanation:
       "Bubble Sort is a simple comparison-based algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed.",
     pseudocode: `
@@ -21,8 +22,8 @@ const algorithmDetails = {
   },
   selection: {
     name: "Selection Sort",
-    timeComplexity: "O(n^2)",
-    spaceComplexity: "O(1)",
+    timeComplexity: "$O(n^2)$",
+    spaceComplexity: "$O(1)$",
     explanation:
       "Selection Sort repeatedly selects the smallest element from the unsorted portion of the array and places it at the beginning.",
     pseudocode: `
@@ -36,8 +37,8 @@ const algorithmDetails = {
   },
   merge: {
     name: "Merge Sort",
-    timeComplexity: "O(n log n)",
-    spaceComplexity: "O(n)",
+    timeComplexity: "$O(n log n)$",
+    spaceComplexity: "$O(n)$",
     explanation:
       "Merge Sort is a divide-and-conquer algorithm. It divides the array into halves, recursively sorts them, and then merges the sorted halves.",
     pseudocode: `
@@ -53,8 +54,8 @@ const algorithmDetails = {
   },
   quick: {
     name: "Quick Sort",
-    timeComplexity: "O(n log n)",
-    spaceComplexity: "O(log n)",
+    timeComplexity: "$O(n log n)$",
+    spaceComplexity: "$O(log n)$",
     explanation:
       "Quick Sort selects a pivot and partitions the array into elements less than the pivot and elements greater than the pivot. It then recursively sorts the partitions.",
     pseudocode: `
@@ -63,6 +64,22 @@ const algorithmDetails = {
           pi = partition(arr, low, high)
           quickSort(arr, low, pi-1)
           quickSort(arr, pi+1, high)
+    `,
+  },
+  insertion: { // New Algorithm Added
+    name: "Insertion Sort",
+    timeComplexity: "$O(n^2)$",
+    spaceComplexity: "$O(1)$",
+    explanation:
+      "Insertion Sort builds the final sorted array one item at a time. It iterates through the input array and removes one element, finds the location it belongs within the sorted part of the array, and inserts it there.",
+    pseudocode: `
+      for i from 1 to n-1:
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+          arr[j+1] = arr[j]
+          j = j - 1
+        arr[j+1] = key
     `,
   },
 };
@@ -84,9 +101,14 @@ const App = () => {
 
   const handleSort = async () => {
     if (sorting) return;
-
     setSorting(true);
     let sortedArray;
+
+    const currentArray = document.getElementsByClassName("array-bar");
+    for (const bar of currentArray) {
+        bar.style.backgroundColor = "blue";
+    }
+
     if (algorithm === "bubble") {
       sortedArray = await bubbleSort(array, delayTime);
     } else if (algorithm === "selection") {
@@ -95,6 +117,8 @@ const App = () => {
       sortedArray = await mergeSort(array, delayTime);
     } else if (algorithm === "quick") {
       sortedArray = await quickSort(array, delayTime);
+    } else if (algorithm === "insertion") { // New condition
+      sortedArray = await insertionSort(array, delayTime);
     }
 
     setArray(sortedArray);
@@ -122,6 +146,7 @@ const App = () => {
           <option value="selection">Selection Sort</option>
           <option value="merge">Merge Sort</option>
           <option value="quick">Quick Sort</option>
+          <option value="insertion">Insertion Sort</option> {/* New Option */}
         </select>
         <input
           type="range"
@@ -151,7 +176,6 @@ const App = () => {
             style={{
               height: `${value}px`,
               width: `${500 / size}px`,
-              backgroundColor: sorting ? "teal" : "skyblue",
             }}
           >
             <div className="bar-value">{value}</div>
